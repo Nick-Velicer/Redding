@@ -5,6 +5,7 @@ import subprocess
 import os
 import mainActions
 import time
+import datetime
 from datetime import date
 
 
@@ -13,10 +14,11 @@ def sPrint(string):
     print(string)
     time.sleep(.08)
 
-
 def startup(filepath):
+    ask = input("Do you have a moment (y/n)?: ")
+    if ask == "y":
+        mainActions.addAttribute("wellness", datetime.datetime.now().strftime("%m/%d/%Y %H:%m"), "How are you feeling on a scale from 1-10?", True, False)
     startDict = mainActions.readAttributes(filepath)
-    startChoice = "0"
     #reading from JSON for Prepared Initial Startup Scripts, or P.I.S.S. for short
     sPrint("\nSelect from below:")
     inSetup = False
@@ -44,6 +46,7 @@ def menu():
     exitChoice = 5
     today = date.today()
     while int(menuChoice) != exitChoice:
+        print("")
         sPrint("What would you like to do?")
         sPrint("1: Make adjustments")
         sPrint("2: Edit scripts")
@@ -54,12 +57,12 @@ def menu():
         if menuChoice == "1":
             mainActions.maintain(pathtoRestart, pathtoProject)
         elif menuChoice == "2":
-            mainActions.addAttribute("startup", "New startup option", "Path to script", False)
+            mainActions.addAttribute("startup", "New startup option", "Path to script", False, True)
             # add option for adjusting by subtracting/editing
         elif menuChoice == "3":
             startup(pathtoStartup)
         elif menuChoice == "4":
-            mainActions.addAttribute("logs", today.strftime("%m/%d/%y"), "Log message", True)
+            mainActions.addAttribute("logs", today.strftime("%m/%d/%y"), "Log message", True, True)
     exit()
 
 

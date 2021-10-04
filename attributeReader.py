@@ -19,8 +19,8 @@ class AttributeReader():
         obj = ""
         with open(self.fileName) as file:
             self.read = json.load(file)
-            #using filename as json title?
-            obj = self.read[os.path.splitext(self.fileName)[0]]
+            #getting 'name' from C:stuff/stuff/name.json
+            obj = self.read[os.path.splitext(os.path.basename(os.path.normpath(self.fileName)))[0]]
             obj.append(self.tempDict)
             file.close()
         with open(self.fileName, "w") as file:
