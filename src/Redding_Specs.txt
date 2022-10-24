@@ -1,0 +1,3 @@
+when parsing new word, use dictionary api to get definition and add links to known words based on it
+base set of procedures that get parsed down to from input, can be added onto
+when new procedure is added, string comparison to try and find the way down and guess new path

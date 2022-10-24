@@ -1,0 +1,36 @@
+{
+    "Redding": {
+        "definition": "myself",
+        "partOfSpeech": "proper noun",
+        "tenses": [],
+        "synonyms": [],
+        "related": [],
+        "inverses": []
+    },
+    "tomato": {
+        "definition": "a fruit",
+        "partOfSpeech": "noun",
+        "tenses": [],
+        "synonyms": [],
+        "related": [
+            {
+                "connection": "Redding",
+                "weight": 0
+            }
+        ],
+        "inverses": []
+    },
+    "self": {
+        "definition": "a word",
+        "partOfSpeech": "noun",
+        "tenses": [],
+        "synonyms": [],
+        "related": [
+            {
+                "connection": "tomato",
+                "weight": 0
+            }
+        ],
+        "inverses": []
+    }
+}
