@@ -13,6 +13,8 @@ import parseSentence
 import baseProcedureHandler as bph
 import multiRelationalNetwork as mrn
 
+reddingHome = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+
 def run_batfile(path):
     subprocess.call([path])
 
@@ -30,7 +32,7 @@ def maintain(restartPath, projectPath):
 
 #key: log/script..., keyPhrase: "new thing identifier?: ", valuePhrase: "new thing?", keyProvided: true/false, repeats: true/false
 def addAttribute(key, keyPhrase, valuePhrase, keyProvided, repeats):
-    file = "C:\Redding\data\\" + key + ".json"
+    file = reddingHome + "\\data\\" + key + ".json"
     if not os.path.isfile(file):
         print("No " + key + " file found, creating new file")
         with open(file, 'w') as outfile:

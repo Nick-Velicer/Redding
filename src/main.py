@@ -9,7 +9,10 @@ import datetime
 from datetime import date
 import baseProcedureHandler as bph
 
+#globals
+reddingHome = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 handler = bph.BaseProcedureHandler()
+
 #a slightly slower print just because it feels more solid
 def sPrint(string):
     print(string)
@@ -66,20 +69,19 @@ def menu():
             mainActions.request()
         elif menuChoice == "5":
             global handler
-            mainActions.viewNetwork("C:\\Redding\\data\\parsenetwork.json", handler)
+            mainActions.viewNetwork(reddingHome + "\\data\\parsenetwork.json", handler)
 
-    handler.backupNetwork("C:\\Redding\\data\\parsenetwork.json")
+    handler.backupNetwork(reddingHome + "\\data\\parsenetwork.json")
     exit()
 
 
 if __name__ == '__main__':
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     time.sleep(1)
-    # r at the front is to prevent \n shenanigans
-    pathtoBatch = r"C:\Redding\scripts\StartRedding.bat"
-    pathtoProject = r"C:\Redding\src\main.py"
-    pathtoStartup = r"C:\Redding\scripts\main"
-    pathtoRestart = r"C:\Redding\scripts\RestartRedding.bat"
+    pathtoBatch = reddingHome + "\\scripts\\StartRedding.bat"
+    pathtoProject = reddingHome
+    pathtoStartup = reddingHome + "\\scripts\\main"
+    pathtoRestart = reddingHome + "\\scripts\\RestartRedding.bat"
     sPrint("\n")
     sPrint("  .oooooooooooooo+++ossssss-.`")
     sPrint("   -osssssss +::: // +osssssso+")
@@ -95,9 +97,8 @@ if __name__ == '__main__':
     sPrint("  /+++++++:      .:/++++:`")
     sPrint("  .+++++++-         `.:/++/:.")
     sPrint(" /:+++++++-             `.: // /:.`")
-
     if len(sys.argv) > 1:
-        handler.initializeNetwork("C:\\Redding\\data\\parsenetwork.json")
+        handler.initializeNetwork(reddingHome + "\\data\\parsenetwork.json")
         if sys.argv[1] == "-s":
             startup(pathtoStartup, True)
             menu()

@@ -1,7 +1,7 @@
 #Nick Velicer, 10/10
 #parses a sentence and returns a request to the data to construct a sentence
 
-import nltk
+#import nltk
 import time
 
 
@@ -13,6 +13,8 @@ def sPrint(string):
 
 
 def interpretRequest(string):
+    sPrint("Will be supported later")
+    '''
     tokens = nltk.word_tokenize(string)
     tokens = nltk.pos_tag(tokens)
     possibleSubjects = []
@@ -29,7 +31,7 @@ def interpretRequest(string):
     sPrint("Interpreted actions: ")
     for i in range(len(possibleActions)):
         sPrint(possibleActions[i] + "\n")
-
+    '''
 
 def getSubjects(string):
     tokens = nltk.word_tokenize(string)
