@@ -10,17 +10,23 @@ import json
 import attributeReader as ar
 import ntpath
 import parseSentence
+import time
+import json
 import baseProcedureHandler as bph
 import multiRelationalNetwork as mrn
 
 reddingHome = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
+
+def sPrint(string):
+    print(string)
+    time.sleep(.08)
 
 def run_batfile(path):
     subprocess.call([path])
 
 
 def maintain(restartPath, projectPath):
-    subprocess.call("pycharm64.exe " + projectPath)
+    subprocess.call("code " + projectPath)
     print("\nI will need to reinitialize for your changes to go through.")
     restartOption = input("Would you like to do so now (y/n)?: ")
     if restartOption == "y":
@@ -100,4 +106,41 @@ def viewNetwork(path, handlerRef):
             newWord = input("What word would you like to add?: ")
             handlerRef.addWord(newWord)
             addCheck = input("Add another word (y/n)?: ")
+
+
+def editScripts(parentPath):
+    tempStartupList = []
+    for i in os.listdir(parentPath):
+        tempStartupList.append(i)
+
+    if len(tempStartupList) == 0:
+        return
+    sPrint("\nChoose a script to edit " + parentPath + ":")
+    for i in range(len(tempStartupList)):
+        sPrint(str(i + 1) + ": " + tempStartupList[i][:-4])
+    choice = input("Choice: ")
+    while not (int(choice) - 1 <= len(tempStartupList) and int(choice) - 1 >= 0):
+        sPrint("Error: Please input within the given range")
+        choice = input("Choice: ")
+    os.system("notepad " + parentPath + "\\" + tempStartupList[int(choice)-1])
+
+
+def readConfig(setting):
+    file = open(reddingHome + "\\data\\config.json")
+    configuration = json.load(file)
+    file.close()
+    return configuration[setting]
+
+
+def setConfig(setting, newState):
+    file = open(reddingHome + "\\data\\config.json")
+    configuration = json.load(file)
+    file.close()
+    configuration[setting] = newState
+    with open(reddingHome + "\\data\\config.json", "w") as outfile:
+        json.dump(configuration, outfile)
+    return configuration[setting]
+
+
+
 

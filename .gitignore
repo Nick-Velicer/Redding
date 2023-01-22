@@ -1,0 +1,5 @@
+.venv
+data/logs.json
+data/wellness.json
+scripts/main
+src/__pycache__

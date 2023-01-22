@@ -8,15 +8,18 @@ import time
 import datetime
 from datetime import date
 import baseProcedureHandler as bph
+import nltk
 
 #globals
 reddingHome = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 handler = bph.BaseProcedureHandler()
 
+
 #a slightly slower print just because it feels more solid
 def sPrint(string):
     print(string)
     time.sleep(.08)
+
 
 def startup(filepath, firstCall):
     if firstCall:
@@ -43,12 +46,14 @@ def startup(filepath, firstCall):
     print()
     os.system(str(filepath) + "\\" + str(tempStartupList[int(choice)-1]))
 
+
 def menu():
     #make this array-based
     menuChoice = "0"
     today = date.today()
     menuChoices = ["Make adjustments",
                    "Run a script",
+                   "Edit scripts",
                    "Add log",
                    "Ask a question",
                    "View Knowledge Network"]
@@ -64,18 +69,18 @@ def menu():
         elif menuChoice == "2":
             startup(pathtoStartup, False)
         elif menuChoice == "3":
-            mainActions.addAttribute("logs", today.strftime("%m/%d/%y"), "Log message", True, True)
+            mainActions.editScripts(reddingHome + "\\scripts\\main")
         elif menuChoice == "4":
-            mainActions.request()
+            mainActions.addAttribute("logs", today.strftime("%m/%d/%y"), "Log message", True, True)
         elif menuChoice == "5":
+            mainActions.request()
+        elif menuChoice == "6":
             global handler
             mainActions.viewNetwork(reddingHome + "\\data\\parsenetwork.json", handler)
 
-    handler.backupNetwork(reddingHome + "\\data\\parsenetwork.json")
-    exit()
-
 
 if __name__ == '__main__':
+
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     time.sleep(1)
     pathtoBatch = reddingHome + "\\scripts\\StartRedding.bat"
@@ -99,6 +104,9 @@ if __name__ == '__main__':
     sPrint(" /:+++++++-             `.: // /:.`")
     if len(sys.argv) > 1:
         handler.initializeNetwork(reddingHome + "\\data\\parsenetwork.json")
+        if (reddingHome + "\\.venv\\Lib\\nltk_data") not in nltk.data.path:
+            nltk.data.path.append(reddingHome + "\\.venv\\Lib\\nltk_data")
+        
         if sys.argv[1] == "-s":
             startup(pathtoStartup, True)
             menu()
@@ -113,5 +121,7 @@ if __name__ == '__main__':
         elif sys.argv[1] == "-c":
             menu()
 
+        handler.backupNetwork(reddingHome + "\\data\\parsenetwork.json")
+        exit()
     else:
         sPrint("no argument specified")
