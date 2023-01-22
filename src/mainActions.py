@@ -26,7 +26,7 @@ def run_batfile(path):
 
 
 def maintain(restartPath, projectPath):
-    subprocess.call("code " + projectPath)
+    os.system("code " + projectPath)
     print("\nI will need to reinitialize for your changes to go through.")
     restartOption = input("Would you like to do so now (y/n)?: ")
     if restartOption == "y":

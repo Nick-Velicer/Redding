@@ -1,3 +1,4 @@
+@echo off
 cd ..
 if NOT exist .venv\ (
  python -m venv .venv
