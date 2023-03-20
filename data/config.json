@@ -1,1 +1,4 @@
-{"Silent Mode": 1, "Diagnostics": 0}
+{"Silent Mode": 1, 
+ "Diagnostics": 0,
+ "Editor": "code",
+ "Developer Mode": 1}

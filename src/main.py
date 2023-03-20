@@ -48,35 +48,45 @@ def startup(filepath, firstCall):
 
 
 def menu():
-    #make this array-based
     menuChoice = "0"
     today = date.today()
-    menuChoices = ["Make adjustments",
-                   "Run a script",
-                   "Edit scripts",
-                   "Add log",
-                   "Ask a question",
-                   "View Knowledge Network"]
-    while int(menuChoice) != len(menuChoices)+1:
+    global handler
+    #if it's a one liner, add a call in here
+    #otherwise add it as a function in mainActions.py
+
+    #format: printed text, function to call, list of arguments
+    #python freaks out when you have the actual calls declared, so the arguments are in separately
+    menuChoices = [["Run A Script", startup, [pathtoStartup, False]],
+                   ["System Files", os.system, ["explorer"]],
+                   ["Edit Scripts", mainActions.editScripts, [reddingHome + "\\scripts\\main"]],
+                   ["Add Log", mainActions.addAttribute, ["logs", today.strftime("%m/%d/%y"), "Log message", True, True]],
+                   ["Ask A Question", mainActions.request, []]]
+    
+    devOptions = [["Make Adjustments", mainActions.maintain, [pathtoRestart, pathtoProject]],
+                  ["View Knowledge Network", mainActions.viewNetwork, [reddingHome + "\\data\\parsenetwork.json", handler]],
+                  ["Notes", os.system, ["notepad " + reddingHome + "\\data\\notes.txt"]]]
+
+    menuArr = []
+    if mainActions.readConfig("Developer Mode"):
+        print("In developer mode")
+        menuArr = menuChoices + devOptions
+    else:
+        menuArr = menuChoices
+    
+    while int(menuChoice) != len(menuArr)+1:
         print("")
         sPrint("What would you like to do?")
-        for i in range(len(menuChoices)):
-            sPrint(str(i+1) + ": " + menuChoices[i])
-        sPrint(str(len(menuChoices)+1) + ": Exit")
+        for i in range(len(menuArr)):
+            sPrint(str(i+1) + ": " + menuArr[i][0])
+        sPrint(str(len(menuArr)+1) + ": Exit")
         menuChoice = input("Choice: ")
-        if menuChoice == "1":
-            mainActions.maintain(pathtoRestart, pathtoProject)
-        elif menuChoice == "2":
-            startup(pathtoStartup, False)
-        elif menuChoice == "3":
-            mainActions.editScripts(reddingHome + "\\scripts\\main")
-        elif menuChoice == "4":
-            mainActions.addAttribute("logs", today.strftime("%m/%d/%y"), "Log message", True, True)
-        elif menuChoice == "5":
-            mainActions.request()
-        elif menuChoice == "6":
-            global handler
-            mainActions.viewNetwork(reddingHome + "\\data\\parsenetwork.json", handler)
+        if int(menuChoice) < 0 or (not menuChoice.isdigit()):
+            sPrint("Error: Input Out Of Range")
+        elif int(menuChoice) == len(menuArr)+1:
+            #let things fall through and program exit
+            break
+        else:
+            menuArr[int(menuChoice)-1][1](*menuArr[int(menuChoice)-1][2])
 
 
 if __name__ == '__main__':

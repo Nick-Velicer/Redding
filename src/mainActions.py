@@ -22,11 +22,27 @@ def sPrint(string):
     time.sleep(.08)
 
 def run_batfile(path):
-    subprocess.call([path])
+    p = subprocess.Popen([path])
+    p.wait()
 
+def readConfig(setting):
+    file = open(reddingHome + "\\data\\config.json")
+    configuration = json.load(file)
+    file.close()
+    return configuration[setting]
+
+
+def setConfig(setting, newState):
+    file = open(reddingHome + "\\data\\config.json")
+    configuration = json.load(file)
+    file.close()
+    configuration[setting] = newState
+    with open(reddingHome + "\\data\\config.json", "w") as outfile:
+        json.dump(configuration, outfile)
+    return configuration[setting]
 
 def maintain(restartPath, projectPath):
-    os.system("code " + projectPath)
+    os.system(readConfig("Editor") + " " + projectPath)
     print("\nI will need to reinitialize for your changes to go through.")
     restartOption = input("Would you like to do so now (y/n)?: ")
     if restartOption == "y":
@@ -124,22 +140,6 @@ def editScripts(parentPath):
         choice = input("Choice: ")
     os.system("notepad " + parentPath + "\\" + tempStartupList[int(choice)-1])
 
-
-def readConfig(setting):
-    file = open(reddingHome + "\\data\\config.json")
-    configuration = json.load(file)
-    file.close()
-    return configuration[setting]
-
-
-def setConfig(setting, newState):
-    file = open(reddingHome + "\\data\\config.json")
-    configuration = json.load(file)
-    file.close()
-    configuration[setting] = newState
-    with open(reddingHome + "\\data\\config.json", "w") as outfile:
-        json.dump(configuration, outfile)
-    return configuration[setting]
 
 
 

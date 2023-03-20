@@ -1,0 +1,3 @@
+Internet macro, pass in string to look up
+Adjusting settings
+Add git integration?

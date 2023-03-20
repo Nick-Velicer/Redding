@@ -6,5 +6,31 @@
         "synonyms": [],
         "related": [],
         "inverses": []
+    },
+    "tomato": {
+        "definition": "a red fruit",
+        "partOfSpeech": "noun",
+        "tenses": [],
+        "synonyms": [],
+        "related": [
+            {
+                "connection": "Redding",
+                "weight": 0
+            }
+        ],
+        "inverses": []
+    },
+    "suspension": {
+        "definition": "a bridge",
+        "partOfSpeech": "noun",
+        "tenses": [],
+        "synonyms": [],
+        "related": [
+            {
+                "connection": "tomato",
+                "weight": 0
+            }
+        ],
+        "inverses": []
     }
 }
